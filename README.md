@@ -10,11 +10,11 @@ Tried to use Meta Quest 3 and VIVE tracker at the same time but failed. There wo
 It looks like that the default button component would not be loaded correctly based on the settings; Maybe the reason is some buttons' img is unchecked (or None). In that case, add a visualizer script as a component.
 
 #### Passthrough in OpenXR
-Use AR Foundation! Add AR Camera Manager, AR Camera Background to the main camera in XR Origin; Set the main camera's camera component: Solid Color (0,0,0,0). Add an AR Plane Manager. Add an AR Session with Scripts: AR Session and AR Input Manager. However the plane tracking would not work if it is PC streaming and not being built.
+Use AR Foundation! Add AR Camera Manager, AR Camera Background to the main camera in XR Origin; Set the main camera's camera component: Solid Color (0,0,0,0). Add an AR Plane Manager. Add a GameObject as AR Session with scripts: AR Session and AR Input Manager. However, the plane tracking would not work if it is PC streaming and not being built.
 
 ---
 ### Vive Tracker
-To use Vive Tracker while the headset is not HTC or Vive Elite, SteamVR will be needed. Use Vive Hub and SteamVR at the same time. Set the tracker correctly and connect it with the controller in SteamVR. However, during the development, it is found that the tracker's data would be captured in Unity ONLY IF SteamVR is set to OpenXR Runtime except Meta Horizon Link, which will cause a serious problem, because other functions like Passthrough is relying on Meta Horizon Link (_OR Meta Quest REQUIRES Meta Horizon Link to be set as the Runtime if it is linked to PC using USB_). So Meta Link would reopen again and again for the Runtime and SteamVR will need it as well, ending up with Unity crashes.
+To use Vive Tracker while the headset is not HTC or Vive Elite, SteamVR will be needed. Use Vive Hub and SteamVR at the same time. Set the tracker correctly and connect it with the controller in SteamVR. However, during the development, it is found that the tracker's data would be captured in Unity ONLY IF SteamVR is set to OpenXR Runtime other than Meta Horizon Link, which will cause a **serious** problem, because other functions like Passthrough is relying on Meta Horizon Link (_OR Meta Quest REQUIRES Meta Horizon Link to be set as the Runtime if it is linked to PC using USB_). So Meta Link would reopen again and again for the Runtime and SteamVR will need it as well, ending up with Unity crashes.
 
 ### Some Useful Online Tutorials
 [Getting Data from VIVE Tracker (SteamVR)](https://developer.vive.com/resources/openxr/unity/tutorials/tracker-overview/getting-data-from-vive-tracker/)<br>
@@ -28,8 +28,15 @@ To use Vive Tracker while the headset is not HTC or Vive Elite, SteamVR will be 
 
 ---
 ### Phase 2: Meta XR
-Get All-in-One;
-Add Poke Interaction to the canvas;
-...
+Get All-in-One SDK<br>
+Interaction SDK - Add Poke Interaction to the canvas<br>
+OVRCameraRig<br>
+<img width="500" height="600" alt="image" src="https://github.com/user-attachments/assets/ead62f59-a21a-4295-a4aa-62ac9ed3a5d4" /><br>
+Hand Tracking Support: Controllers and Hands<br>
+<img width="500" height="400" alt="image" src="https://github.com/user-attachments/assets/511f53ac-82de-4d7b-90de-4a71ea300ff6" /><br>
+<img width="500" height="400" alt="image" src="https://github.com/user-attachments/assets/1c34cfef-1039-4987-83f8-327549884d93" /><br>
+<img width="800" height="400" alt="image" src="https://github.com/user-attachments/assets/f6f3d944-c7a8-4afc-a1f4-3bb226222e92" /><br>
+<img width="500" height="400" alt="image" src="https://github.com/user-attachments/assets/79d2abcf-a1fc-4bf4-a6d7-6205ac3b0a0a" />
 
-## Other things occured
+
+## Other things updated
