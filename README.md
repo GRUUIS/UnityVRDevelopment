@@ -43,21 +43,20 @@ Hand Tracking Support: Controllers and Hands<br>
 ## Topic: Meta XR SDK Multimodal Interaction (Hands + Controllers)
 ### Date: January 6, 2026
 ### 1. The Conflict: Hand vs. Controller Anchors
-**The Problem:** <br>
-When attempting to attach a UI Canvas directly as a child of the OVRLeftControllerPrefab (specifically the Left Controller), two major issues occurred:<br>
+**The Problem:** When attempting to attach a UI Canvas directly as a child of the OVRLeftControllerPrefab (specifically the Left Controller), two major issues occurred:<br>
 **Flickering/Disappearing:** The OVRControllerHelper script automatically disables the controller model (and its children) when Hand Tracking is active or when the controller is idle. This caused the UI to vanish unexpectedly.<br>
 **The "Physical Paradox":** When the Canvas is a child of the controller, and the system uses Multimodal tracking, the "Controller Anchor" sometimes snaps to the Hand's position.<br>
 *(Same problem occurred when trying to use the anchor to relocate model based on the location of RightController.)* <br><br>
 **The Solution:**
 The Canvas must be decoupled from the OVRControllerPrefab hierarchy. It should exist independently in the scene but mathematically follow the controller's hardware position.<br>
 *Instead of following through targetAnchor, directly request the position of LTouch.* <br><br>
-**Implement UIFollowController.cs**
+**Implement UIFollowController.cs** <br>
 Instead of parenting, use a script to update the Canvas position.<br>
-We cannot rely on scene GameObjects like LeftControllerAnchor because their transforms are manipulated by the SDK's high-level logic (which prioritizes Hands in some states).<br>
-*Tracking Space*
-**Principle:** The raw data of the controller is relative to the origin when the headset starts. We need this object to convert the data into the world coordinates of the current scene.<br>
+It seems that we cannot directly rely on scene GameObjects like LeftControllerAnchor as their transforms are manipulated by the SDK's high-level logic (which prioritizes Hands in some states).<br><br>
+*Tracking Space* <br>
+**Principle:** The raw data of the controller is relative to the origin when the headset starts. We need it to convert the data into the world coordinates of the current scene.<br>
 Controller Type: L Touch.<br>
-*LeftControllerAnchor is a Unity GameObject. Meta's scripts (such as OVRCameraRig) will update its position based on the current strategy. In Multimodal mode, it may sometimes prioritize following gestures. The Meta SDK seems to lack detailed user manual explanations for this aspect, so we can only indirectly resort to using scripts to directly seek the hardware position.<br>
+*LeftControllerAnchor is a Unity GameObject. Meta's scripts (such as OVRCameraRig) will update its position based on the current strategy. In Multimodal mode, it may sometimes prioritize following gestures. The Meta SDK seems to lack detailed user manual explanations for this aspect, so just resort to using scripts to get the hardware position.<br>
 OVRInput.GetLocalControllerPosition(OVRInput.Controller.LTouch) is directly asking the underlying driver: "Tell me where the left controller hardware is?".<br>
 It won't change just because you extend your left hand (Hand Tracking); it only recognizes that physical controller.*
 Use OVRInput.GetLocalControllerPosition(OVRInput.Controller.LTouch). This bypasses the scene graph and queries the raw hardware driver directly.<br>
