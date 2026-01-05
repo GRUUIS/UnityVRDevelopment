@@ -61,7 +61,21 @@ Controller Type: L Touch.<br>
 OVRInput.GetLocalControllerPosition(OVRInput.Controller.LTouch) is directly asking the underlying driver: "Tell me where the left controller hardware is?".<br>
 It won't change just because you extend your left hand (Hand Tracking); it only recognizes that physical controller.*
 Use OVRInput.GetLocalControllerPosition(OVRInput.Controller.LTouch). This bypasses the scene graph and queries the raw hardware driver directly.<br>
-The UI now stays firmly attached to the physical controller (acting as a stand/anchor), allowing the user's actual hands to move freely and interact with it without the UI "running away" or flickering.<br><br>
+The UI now stays firmly attached to the physical controller (acting as a stand/anchor), allowing the user's actual hands to move freely and interact with it without the UI "running away" or flickering.<br>
+
+            // Obtain the local coordinates and rotation of the controller in the Tracking Space.
+            Vector3 localPos = OVRInput.GetLocalControllerPosition(controllerType);
+            Quaternion localRot = OVRInput.GetLocalControllerRotation(controllerType);
+
+            // Obtain the local coordinates and rotation of the controller in the Tracking Space.
+            // Since OVRInput provides coordinates relative to the TrackingSpace, we need to make a conversion.
+            Vector3 worldPos = trackingSpace.TransformPoint(localPos);
+            Quaternion worldRot = trackingSpace.rotation * localRot;
+
+            // Calculate the target position after offset.
+            // The logic here is the same as before: push forward based on the current rotation of the controller.
+            Vector3 targetPos = worldPos + (worldRot * positionOffset);
+            Quaternion targetRot = worldRot * Quaternion.Euler(rotationOffset);<br>
 ### Interaction Architecture: "Hands as Input, Controllers as Anchors"
 To achieve a clean UX where the user holds the UI with a controller but clicks it with their hands:<br>
 Disabled the ControllerRayInteractor and ControllerPokeInteractor (and the HoverInteractorsGate) in the OVRInteractionComprehensive rig.<br>
