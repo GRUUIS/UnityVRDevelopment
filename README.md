@@ -33,10 +33,12 @@ Interaction SDK - Add Poke Interaction to the canvas<br>
 OVRCameraRig<br>
 <img width="500" height="600" alt="image" src="https://github.com/user-attachments/assets/ead62f59-a21a-4295-a4aa-62ac9ed3a5d4" /><br>
 Hand Tracking Support: Controllers and Hands<br>
-<img width="500" height="400" alt="image" src="https://github.com/user-attachments/assets/511f53ac-82de-4d7b-90de-4a71ea300ff6" /><br>
+<img width="500" height="400" alt="image" src="https://github.com/user-attachments/assets/511f53ac-82de-4d7b-90de-4a71ea300ff6" />
 <img width="500" height="400" alt="image" src="https://github.com/user-attachments/assets/1c34cfef-1039-4987-83f8-327549884d93" /><br>
 <img width="800" height="400" alt="image" src="https://github.com/user-attachments/assets/f6f3d944-c7a8-4afc-a1f4-3bb226222e92" /><br>
-<img width="500" height="400" alt="image" src="https://github.com/user-attachments/assets/79d2abcf-a1fc-4bf4-a6d7-6205ac3b0a0a" />
+<img width="500" height="400" alt="image" src="https://github.com/user-attachments/assets/79d2abcf-a1fc-4bf4-a6d7-6205ac3b0a0a" /><br>
+<img width="500" height="800" alt="image" src="https://github.com/user-attachments/assets/0d3063ea-71ca-4032-83f4-594ce7f7e0e1" />
+<img width="500" height="800" alt="image" src="https://github.com/user-attachments/assets/ea6581e5-48b4-4229-b1f9-53481c832d9e" /><br>
 
 
 ## Other things updated
@@ -58,7 +60,7 @@ It seems that we cannot directly rely on scene GameObjects like LeftControllerAn
 Controller Type: L Touch.<br>
 *LeftControllerAnchor is a Unity GameObject. Meta's scripts (such as OVRCameraRig) will update its position based on the current strategy. In Multimodal mode, it may sometimes prioritize following gestures. The Meta SDK seems to lack detailed user manual explanations for this aspect, so just resort to using scripts to get the hardware position.<br>
 OVRInput.GetLocalControllerPosition(OVRInput.Controller.LTouch) is directly asking the underlying driver: "Tell me where the left controller hardware is?".<br>
-It won't change just because you extend your left hand (Hand Tracking); it only recognizes that physical controller.*
+It won't change just because you extend your left hand (Hand Tracking); it only recognizes that physical controller.* <br>
 Use OVRInput.GetLocalControllerPosition(OVRInput.Controller.LTouch). This bypasses the scene graph and queries the raw hardware driver directly.<br>
 The UI now stays firmly attached to the physical controller (acting as a stand/anchor), allowing the user's actual hands to move freely and interact with it without the UI "running away" or flickering.<br>
 
