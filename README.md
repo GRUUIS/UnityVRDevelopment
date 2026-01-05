@@ -40,3 +40,15 @@ Hand Tracking Support: Controllers and Hands<br>
 
 
 ## Other things updated
+### Left Hand poke Canvas under Left controller
+Caused some problems;
+In the default logic of Meta's Interaction SDK or OVRCameraRig, when the system detects that you are using "Hand Tracking", it may "snap" the position data of the LeftControllerAnchor to the position of your hand, or they share the same tracking source. 
+Since you wish to make a strict distinction: 
+Left Hand (Hand): Free to move and click on UI.
+Left Controller (Controller): Serves as a stand for UI, with a position independent of the hand (assuming you are holding the controller in one hand and operating with the other, or the controller is placed on a table).
+We need to find a Transform that only represents the hardware position of the controller and is not affected by gestures. 
+Solution: Use OVRInput to directly read hardware coordinates
+Do not rely on the Anchor objects in the scene (as they may be dynamically modified by the SDK's multimodal logic). Instead, directly read the underlying hardware coordinates in the script.<br>
+
+*Instead of following through targetAnchor, directly request the position of LTouch.*
+
