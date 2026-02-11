@@ -1,13 +1,10 @@
 # ProcelianVRDevelopment
-## Log: Quest3 + OpenXR/MetaXR
+## Documentation of what I learned using Quest3 + OpenXR/MetaXR
 Tried to use Meta Quest 3 and VIVE tracker at the same time but failed. There would be 2 possible tracks later: HTC + VIVE tracker + OpenXR, and Quest 3 Hands + Controller + MetaXR.
 ### Phase 1: OpenXR
 #### UI Interaction
 <li>To make a 2D Canvas interactive, add <b>Tracked Device Graphic Raycaster</b> as one component to the canvas. </li>
 <li>If XR Simulation is checked in the project settings, simply add a default Graphic Raycaster on the canvas so that it would be interacitve while testing in simulation on screen.</li>
-
-#### Click Button Visualizer
-It looks like that the default button component would not be loaded correctly based on the settings; Maybe the reason is some buttons' img is unchecked (or None). In that case, add a visualizer script as a component.
 
 #### Passthrough in OpenXR
 Use AR Foundation! Add AR Camera Manager, AR Camera Background to the main camera in XR Origin; Set the main camera's camera component: Solid Color (0,0,0,0). Add an AR Plane Manager. Add a GameObject as AR Session with scripts: AR Session and AR Input Manager. However, the plane tracking would not work if it is PC streaming and not being built.
@@ -90,3 +87,5 @@ Constraints: Implemented Mathf.Clamp setting reasonable minScaleLimit and maxSca
 **Canvas Jitter:** When moving the joystick aggressively to scale the model, the UI Canvas (on the left hand) or the model itself exhibits jitter.<br>
 Attempted Fix: Switched from Update to LateUpdate to sync with the render loop, but the issue persisted.<br>
 Status: Reverted to Update for now.<br>
+
+2026/02/11: Found that hands and controllers won't be tracked simultaneously for UE MetaSDK Plugin.
